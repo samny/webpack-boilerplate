@@ -1,0 +1,36 @@
+.BaseButton {
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none !important;
+    transition: all 0.1s ease;
+    letter-spacing: -0.01em;
+    line-height: normal;
+    border: 0 solid rgba(0, 0, 0, 0);
+    border-radius: 3px;
+}
+
+.BaseButton.is-disabled,
+.BaseButton.is-disabled:hover,
+.BaseButton.is-disabled:active,
+.BaseButton.is-disabled:focus {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+.BaseButton:hover,
+.BaseButton:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+.BaseButton_inner {
+    position: relative;
+    display: block;
+    text-align: center;
+    box-shadow: none;
+    padding: 0.7em 2em;
+}
