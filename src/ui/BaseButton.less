@@ -1,0 +1,68 @@
+.BaseButton {
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none !important; // Make sure to not get "a" tag styles
+    transition: all 0.1s ease;
+    letter-spacing: -0.01em;
+    line-height: normal;
+    border: 0 solid rgba(0, 0, 0, 0);
+    border-radius: 3px;
+
+    //.standard-font-size-button();
+
+
+    //color: @color-appGrey1;
+    //background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+    //box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.22);
+    //border-radius: 999px;
+
+    .BaseButton_inner, > span {
+        position: relative;
+        display: block;
+        text-align: center;
+        box-shadow: none;
+        padding: 0.7em 2em;
+    }
+
+    &.is-disabled,
+    &.is-disabled:hover,
+    &.is-disabled:active,
+    &.is-disabled:focus {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: not-allowed;
+        text-decoration: none;
+    }
+
+    &:hover, &:focus {
+        text-decoration: none;
+        outline: none;
+    }
+
+    &:active {
+
+        //box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.22);
+    }
+}
+
+@color-text-BaseButton-standard: #efefef;
+@color-bg-BaseButton-standard: #efefef;
+
+.BaseButton-standard {
+    color: @color-text-BaseButton-standard;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.22);
+    border-radius: 999px;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+    background-color: @color-bg-BaseButton-standard;
+
+    &:hover, &:focus {
+        background-color: lighten(@color-bg-BaseButton-standard, 3%);
+    }
+
+    &:active {
+        box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.22);
+        background-color: darken(@color-bg-BaseButton-standard, 10%);
+    }
+}
