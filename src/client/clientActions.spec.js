@@ -1,4 +1,3 @@
-import expect from 'expect'
 import {resize, RESIZE} from './clientActions';
 
 describe('clientActions', function() {

@@ -19,6 +19,17 @@
     "mocha": true,
     "jquery": true
   },
+  "globals":{
+    "expect": true,
+    "createSpy": true,
+    "spyOn": true,
+    "isSpy": true,
+    "ReactTestUtils": true,
+    "shallow": true,
+    "mount": true,
+    "React": true,
+    "ReactDOM": true
+  },
   "rules": {
     "strict": 0,
     // Possible errors

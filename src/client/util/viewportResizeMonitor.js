@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {resize} from '../clientActions';
-import store from '../../app/store';
+import store from '../../state/store';
 
 const handleResize = _.debounce(function() {
     console.log('handleResize');

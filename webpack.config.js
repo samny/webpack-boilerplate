@@ -15,11 +15,17 @@ var PATH = {
     root: path.join(__dirname, 'src'),
     dist: path.join(__dirname, 'dist'),
     appMain: path.join(__dirname, 'src/index'),
-    playgroundMain: path.join(__dirname, 'src/playground/index')
+    playgroundMain: path.join(__dirname, 'src/playground/index'),
+    images: path.join(__dirname, 'src/images')
 };
 
 var entryCommon = [
+    // The styles below need to be loaded in order, all component styles
+    // should be name spaced and should not depend on load order.
     'normalize.css',
+    path.join(__dirname, 'src/index.less'),
+
+    // Include polyfills here
     'core-js/fn/object/assign',
     'core-js/es6/promise'
 ];
@@ -50,11 +56,11 @@ var CONFIG = {
             loaders: [
                 {
                     test: /\.js|jsx$/,
-                    include: [ PATH.root ],
+                    include: [PATH.root],
                     exclude: /(node_modules)/,
                     loader: 'babel-loader',
                     query: {
-                        presets: [ 'es2015', 'stage-0', 'react', 'react-hmre' ]
+                        presets: ['es2015', 'stage-0', 'react', 'react-hmre']
                     }
                 }, {
                     test: /\.less$/,
@@ -64,32 +70,40 @@ var CONFIG = {
                     loader: 'style!css!postcss'
                 }, {
                     test: /\.(woff|woff2|eot|ttf|svg)?(\?v=[0-9].[0-9].[0-9])?$/,
-                    loader: 'url?limit=8192'
+                    loader: 'file'
                 }, {
                     test: /\.gif$/,
-                    loader: 'url?limit=10000&mimetype=image/gif'
+                    loader: 'file'
                 }, {
                     test: /\.jpg$/,
-                    loader: 'url?limit=10000&mimetype=image/jpg'
+                    loader: 'file'
                 }, {
                     test: /\.png$/,
-                    loader: 'url?limit=10000&mimetype=image/png'
+                    loader: 'file'
                 }
             ]
         },
 
         resolve: {
-            root: [ PATH.root ],
-            extensions: [ '', '.js', '.json', '.jsx' ],
-            alias: {}
+            root: [PATH.root],
+            extensions: ['', '.js', '.json', '.jsx'],
+            alias: {
+                images: PATH.images
+            }
         },
 
         plugins: [
-            new webpack.ProvidePlugin({})
+            new webpack.ProvidePlugin({}),
+            new HtmlWebpackPlugin({
+                title: 'Home',
+                filename: 'index.html',
+                template: 'src/index.ejs',
+                excludeChunks: ['playground']
+            }),
         ],
 
-        postcss: function() {
-            return [ autoprefixer({ browsers: [ 'last 10 versions', 'not ie <= 9' ] }), precss ];
+        postcss: function () {
+            return [autoprefixer({browsers: ['last 10 versions', 'not ie <= 9']}), precss];
         }
     },
 
@@ -99,7 +113,7 @@ var CONFIG = {
         devtool: 'cheap-source-map',
 
         devServer: {
-            headers: { "Access-Control-Allow-Origin": "*" },
+            headers: {"Access-Control-Allow-Origin": "*"},
             contentBase: PATH.root,
             historyApiFallback: true,
             hot: true,
@@ -110,12 +124,6 @@ var CONFIG = {
         },
 
         plugins: [
-            new HtmlWebpackPlugin({
-                title: 'Home',
-                filename: 'index.html',
-                template: 'src/index.ejs'
-
-            }),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NoErrorsPlugin()
         ]
@@ -134,7 +142,7 @@ var CONFIG = {
             preLoaders: [
                 {
                     test: /\.js$/,
-                    include: [ PATH.root ],
+                    include: [PATH.root],
                     loader: 'eslint-loader'
                 }
             ]
@@ -149,7 +157,7 @@ var CONFIG = {
         output: {
             path: PATH.dist,
             filename: '[name].min.js',
-            publicPath: '/dist/'
+            publicPath: '/'
         },
 
         devtool: 'hidden-source-map',
@@ -161,19 +169,27 @@ var CONFIG = {
                     'NODE_ENV': JSON.stringify('production')
                 }
             }),
+            new webpack.optimize.DedupePlugin(),
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     drop_console: true,
                     warnings: false
                 }
             }),
-            new webpack.optimize.DedupePlugin(),
             new ExtractTextPlugin('[name].min.css')
         ],
 
         module: {
             loaders: [
                 {
+                    test: /\.js|jsx$/,
+                    include: [PATH.root],
+                    exclude: /(node_modules)/,
+                    loader: 'babel-loader',
+                    query: {
+                        presets: ['es2015', 'stage-0', 'react']
+                    }
+                }, {
                     test: /\.less$/,
                     loader: ExtractTextPlugin.extract('style-loader', 'css!postcss!less')
                 }, {
@@ -195,11 +211,11 @@ var CONFIG = {
             loaders: [
                 {
                     test: /\.js|jsx$/,
-                    include: [ PATH.root ],
+                    include: [PATH.root],
                     exclude: /(node_modules)/,
                     loader: 'babel-loader',
                     query: {
-                        presets: [ 'es2015', 'stage-0', 'react' ]
+                        presets: ['es2015', 'stage-0', 'react']
                     }
                 }, {
                     exclude: /(node_modules)/,
@@ -213,11 +229,9 @@ var CONFIG = {
         },
 
         resolve: {
-            root: [ PATH.root ],
-            extensions: [ '', '.js', '.json', '.jsx' ],
-            alias: {
-
-            }
+            root: [PATH.root],
+            extensions: ['', '.js', '.json', '.jsx'],
+            alias: {}
         },
 
         externals: [nodeExternals()],
@@ -240,7 +254,7 @@ var CONFIG = {
                 title: 'Component Playground',
                 filename: 'playground/index.html',
                 template: 'src/playground/index.ejs',
-                excludeChunks: [ 'app' ]
+                excludeChunks: ['app']
             })
         ],
 
@@ -252,7 +266,6 @@ var CONFIG = {
         }
     }
 };
-
 
 
 /**
@@ -274,6 +287,6 @@ switch (TARGET) {
 
     case 'dist':
     default:
-        module.exports = merge.smart(CONFIG.common, CONFIG.dist);
+        module.exports = merge.smart(CONFIG.common, CONFIG.playground, CONFIG.dist);
         break;
 }

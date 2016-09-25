@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bundle-loader": "^0.5.4",
     "classnames": "^2.2.5",
     "normalize.css": "^4.2.0",
     "react": "^15.3.1",

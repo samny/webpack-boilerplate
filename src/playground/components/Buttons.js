@@ -1,6 +1,6 @@
 define([
     'react',
-    '../../ui/BaseButton'
+    '../../components/ui/BaseButton'
 ], function(
     React,
     Component

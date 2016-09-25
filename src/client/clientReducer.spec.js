@@ -1,4 +1,3 @@
-import expect, {createSpy, spyOn, isSpy} from 'expect'
 import reducer from './client.reducer';
 import {RESIZE} from './clientActions';
 

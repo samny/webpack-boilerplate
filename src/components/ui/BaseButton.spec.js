@@ -1,4 +1,3 @@
-import React from 'react'
 import StandardButton from './BaseButton';
 
 function setup() {
@@ -12,8 +11,8 @@ function setup() {
 describe('ui', function() {
     describe('StandardButton', function() {
         it('should render self and subcomponents', function() {
-            const { shallowRenderer, hello } = setup();
-            shallowRenderer.render(<StandardButton text="Click me"></StandardButton>);
+            const { shallowRenderer } = setup();
+            shallowRenderer.render(<StandardButton text="Click me"/>);
             var renderedComponent = shallowRenderer.getRenderOutput();
 
             expect(
