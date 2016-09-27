@@ -26,12 +26,20 @@ export class App extends Component {
     render() {
         let props = this.props;
         let random = Math.floor(Math.random() * 9) + 1;
+        let randomImg = `test_${random}.jpg`;
         return (<div className="App">
             <p>Hello! {props.viewport.height} {props.viewport.width}</p>
             <Image background src={`sequence/test_${random}.jpg`}/>
             <Image src={`sequence/test_${random}.jpg`}/>
             <img src={image1} alt="" style={{display: 'block', width: '100%', height: 'auto'}}/>
-            <div style={{backgroundRepeat: 'no-repeat',backgroundSize: 'cover', backgroundImage: `url(${image1})`, paddingBottom: '75.2%'}}></div>
+            <div style={{
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                backgroundImage: `url(${image1})`,
+                paddingBottom: '75.2%'
+            }}></div>
+            <img src="images/sequence/test_4.jpg" alt="" style={{display: 'block', width: '100%', height: 'auto'}}/>
+            <img src={ require('images/sequence/' + randomImg )} alt="" style={{display: 'block', width: '100%', height: 'auto'}}/>
         </div>);
     }
 }

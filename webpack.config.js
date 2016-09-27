@@ -61,6 +61,7 @@ var CONFIG = {
                     exclude: /(node_modules)/,
                     loader: 'babel-loader',
                     query: {
+                        plugins: ['transform-react-jsx-img-import'],
                         presets: ['es2015', 'stage-0', 'react', 'react-hmre']
                     }
                 }, {
@@ -74,7 +75,7 @@ var CONFIG = {
                     loader: 'file'
                 }, {
                     test: /\.(gif|jpg|png|svg)$/,
-                    loader: 'file'
+                    loader: 'file?context=src&name=[path][name].[sha512:hash:base64:7].[ext]'
                 }
             ]
         },
