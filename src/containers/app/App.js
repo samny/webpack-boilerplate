@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import viewportResizeMonitor from '../../client/util/viewportResizeMonitor';
 import Image from '../../components/media/Image';
 import './App.less';
+import image1 from 'images/sequence/test_1.jpg';
 
 export class App extends Component {
     static propTypes = {
@@ -29,6 +30,8 @@ export class App extends Component {
             <p>Hello! {props.viewport.height} {props.viewport.width}</p>
             <Image background src={`sequence/test_${random}.jpg`}/>
             <Image src={`sequence/test_${random}.jpg`}/>
+            <img src={image1} alt="" style={{display: 'block', width: '100%', height: 'auto'}}/>
+            <div style={{backgroundRepeat: 'no-repeat',backgroundSize: 'cover', backgroundImage: `url(${image1})`, paddingBottom: '75.2%'}}></div>
         </div>);
     }
 }

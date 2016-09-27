@@ -7,6 +7,7 @@ var os = require('os');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var nodeExternals = require('webpack-node-externals');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 
 
 var TARGET = process.env.npm_lifecycle_event;
@@ -72,13 +73,7 @@ var CONFIG = {
                     test: /\.(woff|woff2|eot|ttf|svg)?(\?v=[0-9].[0-9].[0-9])?$/,
                     loader: 'file'
                 }, {
-                    test: /\.gif$/,
-                    loader: 'file'
-                }, {
-                    test: /\.jpg$/,
-                    loader: 'file'
-                }, {
-                    test: /\.png$/,
+                    test: /\.(gif|jpg|png|svg)$/,
                     loader: 'file'
                 }
             ]
@@ -124,6 +119,7 @@ var CONFIG = {
         },
 
         plugins: [
+            new DashboardPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NoErrorsPlugin()
         ]
@@ -195,6 +191,12 @@ var CONFIG = {
                 }, {
                     test: /\.css$/,
                     loader: ExtractTextPlugin.extract('style-loader', 'css!postcss')
+                }, {
+                    test: /\.(gif|jpg|png|svg)$/,
+                    loaders: [
+                        'file?context=src&name=[path][name].[sha512:hash:base64:7].[ext]'
+                        ,'image-webpack'
+                    ]
                 }
             ]
         }
@@ -231,7 +233,9 @@ var CONFIG = {
         resolve: {
             root: [PATH.root],
             extensions: ['', '.js', '.json', '.jsx'],
-            alias: {}
+            alias: {
+                images: PATH.images
+            }
         },
 
         externals: [nodeExternals()],
