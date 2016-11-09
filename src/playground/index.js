@@ -1,1 +1,1 @@
-import 'cosmos-js';
+import 'react-cosmos';

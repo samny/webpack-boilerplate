@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import imageLoader from './imageLoader';
+import imageLoader from '../../util/imageLoader';
 import classNames from 'classnames';
-import './Image.less';
+import styles from './Image.less';
 
 export class Image extends Component {
     static propTypes = {
@@ -20,22 +20,23 @@ export class Image extends Component {
     }
 
     componentDidMount() {
-        imageLoader.get(this.props.src).then((img) => {
-            console.log(img, img.width, img.height);
-            this.setState({img: img});
-        });
+        if(this.props.src) {
+            imageLoader.get(this.props.src).then((img) => {
+                this.setState({img: img});
+            });
+        }
     }
 
     render() {
         var img = this.state.img;
         if (img && ! this.props.background) {
-            return (<figure className={classNames('Image', this.props.className)}><img src={img.src}/></figure>);
+            return (<figure className={classNames(styles.root, this.props.className)}><img src={img.src}/></figure>);
         } else if (img && this.props.background) {
             var imgStyle = {
                 backgroundImage: `url(${img.src})`,
                 paddingBottom: `${ img.height / img.width * 100 }%`
             };
-            return (<figure className={classNames('Image', this.props.className)} style={imgStyle}/>);
+            return (<figure className={classNames(styles.root, this.props.className)} style={imgStyle}/>);
         } else {
             return null;
         }

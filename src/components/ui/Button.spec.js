@@ -1,4 +1,4 @@
-import StandardButton from './BaseButton';
+import StandardButton from './Button';
 
 function setup() {
     const shallowRenderer = ReactTestUtils.createRenderer();
@@ -14,10 +14,6 @@ describe('ui', function() {
             const { shallowRenderer } = setup();
             shallowRenderer.render(<StandardButton text="Click me"/>);
             var renderedComponent = shallowRenderer.getRenderOutput();
-
-            expect(
-                renderedComponent.props.className
-            ).toEqual('BaseButton BaseButton-theme-default');
 
             expect(
                 renderedComponent.props.children.type

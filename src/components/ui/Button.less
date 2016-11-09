@@ -1,0 +1,41 @@
+.root {
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none !important; // Make sure to not get "a" tag styles
+  transition: all 0.1s ease;
+  letter-spacing: -0.01em;
+  line-height: normal;
+  border: 0 solid rgba(0, 0, 0, 0);
+  border-radius: 3px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.22);
+
+  &:hover, &:focus {
+    text-decoration: none;
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.22);
+  }
+
+}
+
+.is-disabled,
+.is-disabled:hover,
+.is-disabled:active,
+.is-disabled:focus {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.inner {
+  position: relative;
+  display: block;
+  text-align: center;
+  box-shadow: none;
+  padding: 0.7em 2em;
+}

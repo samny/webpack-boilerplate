@@ -1,7 +1,7 @@
 function get(path) {
     return new Promise((resolve, reject) => {
         try {
-            require(['images/' + path], (url)=>{
+            require(['resources/images' + path], (url)=>{
                 var img = new Image();
                 img.onload = () => {
                     resolve(img);

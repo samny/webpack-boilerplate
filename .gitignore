@@ -1,4 +1,8 @@
 .tmp
 .idea
 node_modules
+npm-debug.log
 dist/
+
+# Mac
+.DS_Store

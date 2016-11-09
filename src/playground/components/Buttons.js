@@ -1,19 +1,15 @@
-define([
-    'react',
-    '../../components/ui/BaseButton'
-], function(
-    React,
-    Component
-) {
-    function Container(props) {
-        return (
-            <Component {...props} />
-        );
-    }
+import React from 'react';
+import Component from '../../components/ui/Button';
 
-    Container.defaultProps = {
-        text: '[Text]'
-    };
+function Container(props) {
+    return (
+        <Component {...props} />
+    );
+}
 
-    return Container;
-});
+Container.defaultProps = {
+    text: '[Text]'
+};
+
+export default Container;
+
